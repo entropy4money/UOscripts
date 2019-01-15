@@ -1,4 +1,7 @@
-
+"""
+Elemental craft script
+Copyright 2019, Henry Angola (Entropy), ALL rights reserved.
+"""
 def move_tool(tool=None,color=None,quantity=0,ret = False):
     
     item = Items.FindByID(tool,color,resourceBag)
@@ -122,27 +125,36 @@ def burn(item):
         
     Misc.Pause(2000)
 
-
+##################
+###USEFUL ID'S####
+##################
 ###Blacksmith tool/color: 0x13E3/0x0966
 ###Bowsmith tool/color: 0x1022/0x07DA   
 ###ingot ID: 0x1BF2
 ###Boards ID: 0x1BD7
 ###dAxeID : 0x0F4B
 ###Yumi ID : 0x27A5 
+######################
 ### MAIN VARIABLES ###
-resourceBag = 0x43F69EC3
-shadowToolColor = 0x07DA
-toolColor = 0x0000
-toolID = 0x1022
-ingotID = 0x1BD7
-ingotColor = 0x0000
-backpack = Player.Backpack.Serial
-dAxeID = 0x27A5
-elementals = ['fire damage 100%','poison damage 100%','chaos damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%']
-weponsBag = 0x43F69F07
-trash = 0x46038FEE
+######################
+######SETUP###########
+######################
+resourceBag = 0x43F69EC3 #SERIAL bag of resources (wood, ingots, tools,etc...)
+shadowToolColor = 0x07DA #ID magic tool (shadow hammer, oak fletchers, etc...)
+toolColor = 0x0000 #DO NOT CHANGE
+toolID = 0x1022 #ID regular tool (smith hammer, fletcher, etc..)
+ingotID = 0x1BD7 #ID raw materials (wooden boards, ingots, etc...)
+ingotColor = 0x0000 #DO NOT CHANGE
+backpack = Player.Backpack.Serial #DO NOT CHANGE
+dAxeID = 0x27A5 #ID of item to craft (Double axe, bow, etc..)
+elementals = ['fire damage 100%','poison damage 100%','chaos damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%'] #List of elementals to keep
+weponsBag = 0x43F69F07 #SERIAL bag to store elemental weapons
+trash = 0x46038FEE #SERIAL trashcan
 ######################
 
+###MAIN LOOP#####
+###DO NOT TOUCH ANYTHING HERE###
+##############################
 while True:
     Journal.Clear()
     check_resources()

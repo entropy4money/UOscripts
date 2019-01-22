@@ -31,8 +31,10 @@ def check_resources():
         move_tool(toolID,shadowToolColor,0)
         shadowTool = Items.FindByID(toolID,shadowToolColor,backpack)
         Misc.Pause(500)
+    
 
-    Items.GetPropStringList(shadowTool)
+ 
+    Items.WaitForProps(shadowTool,1000)
     for prop in shadowTool.Properties:
         #str(prop).find("uses remaining")
         if str(prop).find("uses remaining") != -1:
@@ -47,16 +49,26 @@ def check_resources():
         Target.TargetExecute(newTool)
         Misc.Pause(2000)
         
-def craft_axe():
+def craft_smith(weapon):
     tool = Items.FindByID(toolID,toolColor,backpack)
-    Items.UseItem(tool)
-    Gumps.WaitForGump(460, 10000)
-    Gumps.SendAction(460, 5000)
-    Gumps.WaitForGump(460, 10000)
-    Gumps.SendAction(460, 9005)
-    Gumps.WaitForGump(460, 10000)
-    Gumps.SendAction(460, 61)
-    Misc.Pause(2000)
+    if weapon == 'axe':
+        Items.UseItem(tool)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 5000)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 9005)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 61)
+        Misc.Pause(2000)
+    
+    if weapon == 'staff':
+        Items.UseItem(tool)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 9006)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 67)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 0)
     
 
 def craft_bow(bow='composite'):
@@ -64,6 +76,8 @@ def craft_bow(bow='composite'):
         menu = 9
     if bow == 'yumi':
         menu = 11
+    if bow == 'magical':
+        menu = 13
     tool = Items.FindByID(toolID,toolColor,backpack)
     Items.UseItem(tool)
 
@@ -98,7 +112,7 @@ def reforge():
     return elemental
     
 def check_elemental(item):
-    Items.GetPropStringList(item)
+    Items.WaitForProps(item,1000)
     for prop in item.Properties:
         Misc.SendMessage(prop)
         if str(prop) in elementals:
@@ -141,8 +155,10 @@ def burn(item):
 ###ingot ID: 0x1BF2
 ###Boards ID: 0x1BD7
 ###dAxeID : 0x0F4B
+###staffID: 0x26BD
 ###Yumi ID : 0x27A5
-##Composite: 0x26C2 
+##Composite: 0x26C2
+##Magical: 0x2D1F  
 ######################
 ### MAIN VARIABLES ###
 ######################
@@ -150,13 +166,13 @@ def burn(item):
 ######################
 
 resourceBag = 0x43F69EC3 #SERIAL bag of resources (wood, ingots, tools,etc...)
-shadowToolColor = 0x07DA #ID magic tool (shadow hammer, oak fletchers, etc...)
+shadowToolColor = 0x0966 #ID magic tool (shadow hammer, oak fletchers, etc...)
 toolColor = 0x0000 #DO NOT CHANGE
-toolID = 0x1022 #ID regular tool (smith hammer, fletcher, etc..)
-ingotID = 0x1BD7 #ID raw materials (wooden boards, ingots, etc...)
+toolID = 0x13E3 #ID regular tool (smith hammer, fletcher, etc..)
+ingotID = 0x1BF2 #ID raw materials (wooden boards, ingots, etc...)
 ingotColor = 0x0000 #DO NOT CHANGE
 backpack = Player.Backpack.Serial #DO NOT CHANGE
-dAxeID = 0x26C2 #ID of item to craft (Double axe, bow, etc..)
+dAxeID = 0x26BD  #ID of item to craft (Double axe, bow, etc..)
 elementals = ['fire damage 100%','poison damage 100%','chaos damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%'] #List of elementals to keep
 weponsBag = 0x43F69F07 #SERIAL bag to store elemental weapons
 trash = 0x46038FEE #SERIAL trashcan
@@ -168,7 +184,8 @@ trash = 0x46038FEE #SERIAL trashcan
 while True:
     Journal.Clear()
     check_resources()
-    craft_bow('composite')
+    #craft_bow('magical')
+    craft_smith('staff')
     check_resources()
     item = Items.FindByID(dAxeID,-1,backpack)
     if item != None:
@@ -184,11 +201,3 @@ while True:
                 move_to_bag(item)
     else:
         Misc.Pause(2000)
-            
-
-
-
-
-
-
-

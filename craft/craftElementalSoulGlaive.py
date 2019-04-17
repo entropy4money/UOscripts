@@ -51,8 +51,23 @@ def check_resources():
         
 def craft_smith(weapon):
     tool = Items.FindByID(toolID,toolColor,backpack)
+    Items.UseItem(tool)
+    if weapon == 'soul':
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 9009)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 210)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 0)
+    if weapon == 'boom':
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 9009)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 208)
+        Gumps.WaitForGump(460, 10000)
+        Gumps.SendAction(460, 0)
     if weapon == 'axe':
-        Items.UseItem(tool)
+
         Gumps.WaitForGump(460, 10000)
         Gumps.SendAction(460, 5000)
         Gumps.WaitForGump(460, 10000)
@@ -62,7 +77,7 @@ def craft_smith(weapon):
         Misc.Pause(2000)
     
     if weapon == 'staff':
-        Items.UseItem(tool)
+
         Gumps.WaitForGump(460, 10000)
         Gumps.SendAction(460, 9006)
         Gumps.WaitForGump(460, 10000)
@@ -89,6 +104,7 @@ def craft_bow(bow='composite'):
     
     
 def check_exceptional(item):
+    Items.WaitForProps(item,1000)
     Items.GetPropStringList(item)
     for prop in item.Properties:
         if str(prop) == 'exceptional':
@@ -157,6 +173,8 @@ def burn(item):
 ###dAxeID : 0x0F4B
 ###staffID: 0x26BD
 ###Yumi ID : 0x27A5
+###boom ID: 0x4067
+###soul ID: 0x406B
 ##Composite: 0x26C2
 ##Magical: 0x2D1F  
 ######################
@@ -166,14 +184,14 @@ def burn(item):
 ######################
 
 resourceBag = 0x43F69EC3 #SERIAL bag of resources (wood, ingots, tools,etc...)
-shadowToolColor = 0x0966 #ID magic tool (shadow hammer, oak fletchers, etc...)
+shadowToolColor = 0x0966  #ID magic tool (shadow hammer, oak fletchers, etc...)
 toolColor = 0x0000 #DO NOT CHANGE
 toolID = 0x13E3 #ID regular tool (smith hammer, fletcher, etc..)
 ingotID = 0x1BF2 #ID raw materials (wooden boards, ingots, etc...)
 ingotColor = 0x0000 #DO NOT CHANGE
 backpack = Player.Backpack.Serial #DO NOT CHANGE
-dAxeID = 0x0F4B  #ID of item to craft (Double axe, bow, etc..)
-elementals = ['fire damage 100%','poison damage 100%','chaos damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%'] #List of elementals to keep
+dAxeID = 0x406B   #ID of item to craft (Double axe, bow, etc..)
+elementals = ['fire damage 100%','poison damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%','energy damage 80%','fire damage 60%'] #List of elementals to keep
 weponsBag = 0x43F69F07 #SERIAL bag to store elemental weapons
 trash = 0x46038FEE #SERIAL trashcan
 ######################
@@ -185,7 +203,7 @@ while True:
     Journal.Clear()
     check_resources()
     #craft_bow('magical')
-    craft_smith('axe')
+    craft_smith('soul')
     check_resources()
     item = Items.FindByID(dAxeID,-1,backpack)
     if item != None:
@@ -201,3 +219,6 @@ while True:
                 move_to_bag(item)
     else:
         Misc.Pause(2000)
+            
+
+

@@ -165,17 +165,17 @@ def burn(item):
 ######SETUP###########
 ######################
 
-resourceBag = 0x43F69EC3 #SERIAL bag of resources (wood, ingots, tools,etc...)
-shadowToolColor = 0x0966 #ID magic tool (shadow hammer, oak fletchers, etc...)
+resourceBag = 0x4418E7A1 #SERIAL bag of resources (wood, ingots, tools,etc...)
+shadowToolColor = 0x07DA  #ID magic tool (shadow hammer, oak fletchers, etc...)
 toolColor = 0x0000 #DO NOT CHANGE
-toolID = 0x13E3 #ID regular tool (smith hammer, fletcher, etc..)
-ingotID = 0x1BF2 #ID raw materials (wooden boards, ingots, etc...)
+toolID = 0x1022 #ID regular tool (smith hammer, fletcher, etc..)
+ingotID = 0x1BD7 #ID raw materials (wooden boards, ingots, etc...)
 ingotColor = 0x0000 #DO NOT CHANGE
 backpack = Player.Backpack.Serial #DO NOT CHANGE
-dAxeID = 0x0F4B  #ID of item to craft (Double axe, bow, etc..)
-elementals = ['fire damage 100%','poison damage 100%','chaos damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%'] #List of elementals to keep
-weponsBag = 0x43F69F07 #SERIAL bag to store elemental weapons
-trash = 0x46038FEE #SERIAL trashcan
+dAxeID = 0x2D1F   #ID of item to craft (Double axe, bow, etc..)
+elementals = ['fire damage 100%','poison damage 100%','cold damage 100%','cold damage 70%','fire damage 70%','energy damage 100%'] #List of elementals to keep
+weponsBag = 0x4586B044 #SERIAL bag to store elemental weapons
+trash = 0x450FB910 #SERIAL trashcan
 ######################
 
 ###MAIN LOOP#####
@@ -184,8 +184,8 @@ trash = 0x46038FEE #SERIAL trashcan
 while True:
     Journal.Clear()
     check_resources()
-    #craft_bow('magical')
-    craft_smith('axe')
+    craft_bow('bow')
+    #craft_smith('staff')
     check_resources()
     item = Items.FindByID(dAxeID,-1,backpack)
     if item != None:
@@ -201,3 +201,6 @@ while True:
                 move_to_bag(item)
     else:
         Misc.Pause(2000)
+            
+
+
